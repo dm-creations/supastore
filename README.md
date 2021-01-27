@@ -31,7 +31,7 @@ npm run build
 ```
 
 ## Alternatively...
-To view Build version of the site go to: [dxlm.co.uk/sd/index.html](https://dxlm.co.uk/for-sd/)
+To view Build version of the site go to: [dxlm.co.uk/sd/index.html](https://dxlm.co.uk/sd/index.html)
 
 ## Design Basis
 
