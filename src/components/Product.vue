@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="text-white text-xl bg-gray-800 w-3/5 mx-auto my-3 py-4 rounded-xl shadow-2xl md:w-1/2">
-      <div class="text-xl mb-1 underline uppercase font-bold">Buy in stores</div>
+      <div class="text-xl mb-1 underline uppercase font-bold">Buy in stores for {{ priceVal }} {{ priceCurr }}</div>
       <div class="cursor-pointer" v-for="retailer in retailers" :key="retailer">
         <a v-bind:href="retailer.path">{{ retailer.label }}</a>
       </div>
@@ -32,7 +32,7 @@
         <hr class="mt-3 mr-auto w-full md:w-4/5 md:border-white"/>
       </div>
       <div class="reviews block w-screen h-52 overflow-x-scroll overflow-y-hidden whitespace-nowrap my-5 md:flex md:justify-between md:w-1/2 md:my-12">
-        <div class="review inline-block w-screen h-full md:w-3/7 md:box-border md:mx-2 md:text-2xl" v-for="review in reviews" :key="review.id">
+        <div class="review inline-block w-screen h-full md:w-3/7 md:box-border md:mx-3 md:text-2xl" v-for="review in reviews" :key="review.id">
           <div class="flex flex-col justify-around py-6 h-full">
             <p class="my-2 whitespace-normal">{{ review.review.description }}</p>
             <strong class="italic" v-html="review.review.reviewer"></strong>
@@ -77,6 +77,7 @@ export default {
   data () {
     return {
       metaTitle: '',
+      metaIcon: '',
       title: '',
       author: '',
       authorImageURL: '',
@@ -102,8 +103,8 @@ export default {
     this.bookCover = appService.getProduct().image
     this.bookDesc = appService.getProduct().description
     this.bookDescText = this.filterStyle(this.bookDesc)
-    this.priceCurr = appService.getProduct().prices[0].locale
-    this.priceVal = appService.getProduct().prices[0].amount
+    this.priceCurr = appService.getProduct().prices[1].locale
+    this.priceVal = appService.getProduct().prices[1].amount
     this.saleDate = appService.getProduct().sale_date.date
     this.reviews = appService.getProduct().reviews
     this.retailers = appService.getProduct().retailers
@@ -113,8 +114,12 @@ export default {
     document.title = this.metaTitle
     appService.getObject()
     this.bookCover = this.imageSize(this.bookCover, '400')
+    this.changeIcon(this.imageSize(this.bookCover, '150'))
   },
   methods: {
+    changeIcon (icon) {
+      document.querySelector('link[rel=icon]').href = icon
+    },
     imageSize (img, size) {
       return img.replace('145', size)
     },
